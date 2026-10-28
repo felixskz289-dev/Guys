@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Урок: 想 + иероглифы урока «В ресторане» (HSK 1)</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { font-family:-apple-system,'Segoe UI',Roboto,sans-serif; background:#f5f1e8; color:#2b2620; min-height:100vh; }
+  .progress { position:fixed; top:0; left:0; height:4px; background:#c0392b; width:0%; transition:width .3s; z-index:99; }
+  header { background:#c0392b; color:#fff; padding:18px 16px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,.2); }
+  header h1 { font-size:20px; margin-bottom:4px; }
+  header p { font-size:13px; opacity:.9; }
+  .tabs { display:flex; background:#a93226; position:sticky; top:0; z-index:50; }
+  .tab { flex:1; padding:13px 4px; text-align:center; color:#f5d5cf; font-size:13px; cursor:pointer; border:none; background:none; font-weight:600; }
+  .tab.active { background:#f5f1e8; color:#c0392b; border-radius:14px 14px 0 0; }
+  .page { display:none; padding:20px 16px 80px; max-width:640px; margin:0 auto; animation:fade .25s; }
+  .page.active { display:block; }
+  @keyframes fade { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+  .card { background:#fff; border-radius:16px; padding:20px; margin-bottom:16px; box-shadow:0 2px 10px rgba(0,0,0,.07); }
+  h2 { font-size:17px; margin-bottom:12px; color:#c0392b; }
+  .btn { display:inline-block; background:#c0392b; color:#fff; border:none; border-radius:12px; padding:12px 22px; font-size:15px; cursor:pointer; font-weight:600; width:100%; }
+  .btn.sec { background:#8d6e3f; }
+  .btn.ghost { background:#e8e0d0; color:#2b2620; }
+  .btn:active { transform:scale(.97); }
+
+  /* Flashcards */
+  .flash { perspective:1000px; margin:10px 0 16px; cursor:pointer; }
+  .flash-inner { position:relative; width:100%; height:230px; transition:transform .5s; transform-style:preserve-3d; }
+  .flash.flipped .flash-inner { transform:rotateY(180deg); }
+  .face { position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:20px; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(0,0,0,.12); }
+  .face.front { background:#fff; }
+  .face.back { background:#c0392b; color:#fff; transform:rotateY(180deg); }
+  .face .zi { font-size:72px; font-weight:700; }
+  .face .pin { font-size:22px; margin-top:8px; letter-spacing:1px; }
+  .face .tr { font-size:17px; margin-top:8px; }
+  .face .word { font-size:13px; color:#8d6e3f; margin-top:10px; text-align:center; padding:0 16px; }
+  .face.back .word { color:#f5d5cf; }
+  .flash-nav { display:flex; gap:10px; align-items:center; }
+  .flash-nav .btn { flex:1; padding:12px 6px; }
+  .counter { text-align:center; font-size:13px; color:#8d6e3f; margin:8px 0; }
+  .star { position:absolute; top:12px; right:14px; font-size:24px; color:#d9d2c4; }
+  .star.on { color:#f1c40f; }
+
+  /* Grammar */
+  .formula { background:#fdf3e0; border-left:4px solid #e67e22; border-radius:8px; padding:12px 14px; font-size:16px; margin:10px 0; }
+  .formula b { color:#c0392b; }
+  .zi-big { font-size:30px; }
+  .table { width:100%; border-collapse:collapse; font-size:15px; }
+  .table td, .table th { border:1px solid #e0d8c8; padding:9px 8px; text-align:left; }
+  .table th { background:#f0e8d8; }
+  .ex { background:#fbfaf6; border-radius:10px; padding:10px 12px; margin:8px 0; font-size:15px; }
+  .ex .cn { font-size:17px; }
+  .ex .pin { color:#8d6e3f; font-size:13px; margin:2px 0; }
+  .note { background:#eaf4ea; border-left:4px solid #27ae60; border-radius:8px; padding:10px 14px; font-size:14px; margin:10px 0; }
+  .warn { background:#fdecea; border-left:4px solid #c0392b; border-radius:8px; padding:10px 14px; font-size:14px; margin:10px 0; }
+
+  /* Quiz */
+  .q-opt { display:block; width:100%; text-align:left; background:#f5f1e8; border:2px solid #e0d8c8; border-radius:12px; padding:13px 14px; font-size:16px; margin:8px 0; cursor:pointer; }
+  .q-opt.right { background:#d5f5d5; border-color:#27ae60; }
+  .q-opt.wrong { background:#fdecea; border-color:#c0392b; }
+  .q-char { font-size:52px; text-align:center; padding:12px; background:#fdf3e0; border-radius:14px; margin:8px 0 14px; }
+  .feedback { text-align:center; font-size:15px; min-height:22px; margin:8px 0; font-weight:600; }
+  .result { text-align:center; padding:20px; }
+  .result .score { font-size:44px; color:#c0392b; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<header>
+  <h1>Урок 8: 在饭馆儿 — В ресторане</h1>
+  <p>Запоминаем иероглифы и учим грамматику 想 «хотеть»</p>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" onclick="showPage(0)">📇 Карточки</button>
+  <button class="tab" onclick="showPage(1)">📖 Грамматика</button>
+  <button class="tab" onclick="showPage(2)">✏️ Тренировка</button>
+</nav>
+
+<!-- ============ PAGE 1: FLASHCARDS ============ -->
+<section class="page active" id="page0">
+  <div class="card">
+    <h2>Флеш-карточки — нажми, чтобы перевернуть</h2>
+    <div class="flash" id="flash" onclick="flip()">
+      <div class="flash-inner">
+        <div class="face front">
+          <span class="star" id="star" onclick="event.stopPropagation(); toggleStar()">★</span>
+          <div class="zi" id="fZi"></div>
+        </div>
+        <div class="face back">
+          <div class="zi" id="bZi"></div>
+          <div class="pin" id="bPin"></div>
+          <div class="tr" id="bTr"></div>
+          <div class="word" id="bWord"></div>
+        </div>
+      </div>
+    </div>
+    <div class="counter" id="counter"></div>
+    <div class="flash-nav">
+      <button class="btn ghost" onclick="prev()">◀ Назад</button>
+      <button class="btn sec" onclick="shuffle()">🔀 Перемешать</button>
+      <button class="btn" onclick="next()">Далее ▶</button>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Словарь урока</h2>
+    <table class="table" id="dict"></table>
+  </div>
+</section>
+
+<!-- ============ PAGE 2: GRAMMAR ============ -->
+<section class="page" id="page1">
+  <div class="card">
+    <h2>Грамматика: 想 (xiǎng) — «хотеть, желать»</h2>
+    <p>想 — модальный глагол. Он стоит <b>перед</b> основным глаголом и означает желание сделать что-то.</p>
+    <div class="formula">Субъект + <b>想</b> + глагол (+ объект)</div>
+    <p style="margin-top:6px">Пример из текста:</p>
+    <div class="ex">
+      <div class="cn">我<b style="color:#c0392b">想</b>喝茶。</div>
+      <div class="pin">Wǒ xiǎng hē chá.</div>
+      <div>Я хочу пить чай. (= Мне хочется чаю.)</div>
+    </div>
+    <div class="ex">
+      <div class="cn">你<b style="color:#c0392b">想</b>吃什么？</div>
+      <div class="pin">Nǐ xiǎng chī shénme?</div>
+      <div>Что ты хочешь съесть?</div>
+    </div>
+    <div class="note">💡 <b>想 + 什么 = «Что бы ты хотел?»</b> Вежливая форма заказа в ресторане и кафе. Отрицание — <b>不想</b>: 我不想喝茶。 — «Я не хочу чай».</div>
+    <div class="warn">⚠️ Глагол 想 не требует частицы 的 и не меняет форму. После него сразу идёт основной глагол.</div>
+  </div>
+  <div class="card">
+    <h2>Ещё примеры с 想</h2>
+    <div class="ex"><div class="cn">我想吃米饭。</div><div class="pin">Wǒ xiǎng chī mǐfàn.</div><div>Я хочу рис.</div></div>
+    <div class="ex"><div class="cn">你想喝什么？</div><div class="pin">Nǐ xiǎng hē shénme?</div><div>Что ты хочешь выпить?</div></div>
+    <div class="ex"><div class="cn">他想喝茶，我不想喝。</div><div class="pin">Tā xiǎng hē chá, wǒ bù xiǎng hē.</div><div>Он хочет чай, а я не хочу.</div></div>
+  </div>
+  <div class="card">
+    <h2>Мини-игра: переведи на китайский</h2>
+    <div id="transQuiz"></div>
+  </div>
+</section>
+
+<!-- ============ PAGE 3: QUIZ ============ -->
+<section class="page" id="page2">
+  <div class="card">
+    <h2>Тест: узнай иероглиф</h2>
+    <div id="quiz"></div>
+  </div>
+</section>
+
+<script>
+/* ---------- Data ---------- */
+const WORDS = [
+  {zi:"想",   pin:"xiǎng",  tr:"хотеть, желать",  word:"我想喝茶。— Я хочу чай.", known:false},
+  {zi:"喝",   pin:"hē",     tr:"пить",            word:"你喝什么？— Что ты пьёшь?", known:false},
+  {zi:"茶",   pin:"chá",    tr:"чай",             word:"茶很好喝。— Чай очень вкусный.", known:false},
+  {zi:"吃",   pin:"chī",    tr:"есть, кушать",    word:"你吃什么？— Что ты ешь?", known:false},
+  {zi:"米饭", pin:"mǐfàn",  tr:"варёный рис",     word:"我想吃米饭。— Я хочу рис.", known:false},
+];
+
+/* ---------- Tabs ---------- */
+function showPage(i){
+  document.querySelectorAll('.page').forEach((p,k)=>p.classList.toggle('active',k===i));
+  document.querySelectorAll('.tab').forEach((t,k)=>t.classList.toggle('active',k===i));
+  window.scrollTo(0,0);
+}
+
+/* ---------- Flashcards ---------- */
+let order=[0,1,2,3,4], idx=0;
+const flash=document.getElementById('flash');
+function render(){
+  const w=WORDS[order[idx]];
+  if(flash.classList.contains('flipped')) flash.classList.remove('flipped');
+  setTimeout(()=>{
+    document.getElementById('fZi').textContent=w.zi;
+    document.getElementById('bZi').textContent=w.zi;
+    document.getElementById('bPin').textContent=w.pin;
+    document.getElementById('bTr').textContent=w.tr;
+    document.getElementById('bWord').textContent=w.word;
+  }, flash.classList.contains('flipped')?250:0);
+  document.getElementById('star').classList.toggle('on', w.known);
+  document.getElementById('counter').textContent=(idx+1)+" / "+order.length;
+  const knownN=WORDS.filter(w=>w.known).length;
+  document.getElementById('progress').style.width=(knownN/WORDS.length*100)+"%";
+}
+function flip(){ flash.classList.toggle('flipped'); }
+function next(){ idx=(idx+1)%order.length; render(); }
+function prev(){ idx=(idx-1+order.length)%order.length; render(); }
+function shuffle(){ order.sort(()=>Math.random()-.5); idx=0; render(); }
+function toggleStar(){ WORDS[order[idx]].known=!WORDS[order[idx]].known; render(); }
+
+/* Dict table */
+let dictHtml="<tr><th>Иероглиф</th><th>Пиньинь</th><th>Перевод</th></tr>";
+WORDS.forEach(w=>dictHtml+="<tr><td class='zi-big'>"+w.zi+"</td><td>"+w.pin+"</td><td>"+w.tr+"</td></tr>");
+document.getElementById('dict').innerHTML=dictHtml;
+
+/* ---------- Translation mini-quiz (grammar page) ---------- */
+const TQ=[
+  {q:"«Я хочу пить чай»", a:"我想喝茶", opts:["我想喝茶","我喝茶想","想我喝茶"]},
+  {q:"«Что ты хочешь съесть?»", a:"你想吃什么？", opts:["你想吃什么？","你吃想什么？","什么你想吃？"]},
+  {q:"«Я не хочу рис»", a:"我不想吃米饭", opts:["我不想吃米饭","我不吃想米饭","我想不吃米饭"]},
+];
+let tqi=0;
+function renderTQ(){
+  const el=document.getElementById('transQuiz');
+  if(tqi>=TQ.length){ el.innerHTML="<div class='result'><p>Отлично! Всё верно 💪</p></div>"; return; }
+  const t=TQ[tqi];
+  let h="<p style='margin-bottom:10px'><b>"+t.q+"</b></p>";
+  t.opts.forEach(o=>{ h+="<button class='q-opt' onclick='checkTQ(this,\""+o.replace(/"/g,'&quot;')+"\")'>"+o+"</button>"; });
+  h+="<div class='feedback' id='tfb'></div><button class='btn ghost' id='tnext' style='display:none' onclick='tqi++;renderTQ()'>Дальше ▶</button>";
+  el.innerHTML=h;
+}
+function checkTQ(btn,txt){
+  const t=TQ[tqi];
+  document.querySelectorAll('#transQuiz .q-opt').forEach(b=>b.style.pointerEvents='none');
+  if(txt===t.a){ btn.classList.add('right'); document.getElementById('tfb').textContent="✅ Верно!"; }
+  else { btn.classList.add('wrong'); document.getElementById('tfb').textContent="❌ Правильно: "+t.a;
+    document.querySelectorAll('#transQuiz .q-opt').forEach(b=>{ if(b.textContent===t.a) b.classList.add('right'); }); }
+  document.getElementById('tnext').style.display='block';
+}
+
+/* ---------- Character quiz ---------- */
+const QQ=[
+  {c:"想", opts:["хотеть","пить","чай","есть"], a:0},
+  {c:"喝", opts:["есть","пить","рис","чай"], a:1},
+  {c:"茶", opts:["вода","рис","чай","хотеть"], a:2},
+  {c:"吃", opts:["пить","хотеть","рисовый","есть"], a:3},
+  {c:"米饭", opts:["лапша","варёный рис","чай","хлеб"], a:1},
+];
+let qi=0, score=0;
+function renderQ(){
+  const el=document.getElementById('quiz');
+  if(qi>=QQ.length){
+    el.innerHTML="<div class='result'><div class='score'>"+score+" / "+QQ.length+"</div><p>"+(score===QQ.length?"Идеально! 🏆":"Хорошо! Повтори карточки и попробуй снова.")+"</p><button class='btn' onclick='qi=0;score=0;renderQ()'>Пройти ещё раз</button></div>";
+    return;
+  }
+  const q=QQ[qi];
+  let h="<div class='q-char'>"+q.c+"</div>";
+  q.opts.forEach((o,i)=>{ h+="<button class='q-opt' onclick='checkQ(this,"+i+")'>"+o+"</button>"; });
+  h+="<div class='feedback' id='fb'></div>";
+  el.innerHTML=h;
+}
+function checkQ(btn,i){
+  const q=QQ[qi];
+  document.querySelectorAll('#quiz .q-opt').forEach(b=>b.style.pointerEvents='none');
+  if(i===q.a){ btn.classList.add('right'); score++; document.getElementById('fb').textContent="✅ Верно!"; }
+  else { btn.classList.add('wrong'); document.getElementById('fb').textContent="❌ Это «"+q.opts[q.a]+"»"; }
+  setTimeout(()=>{ qi++; renderQ(); }, 900);
+}
+
+render(); renderTQ(); renderQ();
+</script>
+</body>
+</html>
